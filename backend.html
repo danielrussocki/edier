@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .nojs{
+            display: none;
+        }
+    </style>
+    Iniciaste sesión
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<!-- <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script> -->
+<script src="node_modules/js-cookie/src/js.cookie.js"></script>
+<script>
+    $(document).ready(function(){
+        if($('html').hasClass('nojs')){
+            $('html').removeClass('nojs');
+            $('html').addClass('js');
+        }
+    });
+</script>
+</body>
+</html>

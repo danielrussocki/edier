@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Proyecto</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container-fluid d-flex bg-dark justify-content-center align-items-center text-white" style="min-height: 100vh;">
+        <div class="card text-dark" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title text-center">Login</h5>
+                <h6 class="card-subtitle mb-2 text-center text-danger" id="mensajevalidacion"></h6>
+                <div class="card-text">
+                    <form action="">
+                        <div class="form-group">
+                            <label for="usuario">Usuario:</label>
+                            <input type="text" name="usuario" id="usuario" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña:</label>
+                            <input type="password" name="password" id="password" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-success" id="btnlogin">Iniciar sesión</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="node_modules/js-cookie/src/js.cookie.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#btnlogin').click(function(){
+            let usu = $('#usuario').val();
+            let pass = $('#password').val();
+            let data = {};
+            if(usu != '' && pass != ''){
+                data = {
+                    funct: 'validarLogin',
+                    usuario: usu,
+                    password: pass
+                };
+                $.post("funciones.php", data, function(r){
+                    if(r.status == 2){
+                        $('#mensajevalidacion').text('Ocurrió algo inesperado. Intente nuevamente.');
+                    } else if(r.status == 3){
+                        $('#mensajevalidacion').text('Campos vacíos');
+                    } else if(r.status == 1){
+                        Cookie.set('userIn', usu);
+                        window.location.replace("backend.html");
+                    }
+                }, "JSON");
+            } else {
+                $('#mensajevalidacion').text('Campos vacíos');
+            }
+        });
+    });
+</script>
+</body>
+</html>
